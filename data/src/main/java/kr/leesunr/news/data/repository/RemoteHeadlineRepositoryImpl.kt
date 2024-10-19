@@ -1,5 +1,8 @@
 package kr.leesunr.news.data.repository
 
+import android.content.Context
+import com.bumptech.glide.Glide
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kr.leesunr.news.data.BuildConfig
@@ -15,11 +18,19 @@ import javax.inject.Inject
 internal class HeadlineRepositoryImpl
 @Inject constructor(
     private val newsAPI: NewsAPI,
-    private val headlineDAO: HeadlineDAO
+    private val headlineDAO: HeadlineDAO,
+    @ApplicationContext private val context: Context
 ) : HeadlineRepository {
     override suspend fun fetch() {
         val response = newsAPI.getHeadlines(apiKey = BuildConfig.NEWS_API_KEY)
         val headlines = response.toHeadlines()
+
+        //image pre load
+        headlines.forEach {
+            val imageUrl = it.imageUrl
+            if (imageUrl != null) imagesPreLoad(imageUrl)
+        }
+
         val headlineDTOs = headlines.map { HeadlineDTO.of(it) }
         headlineDAO.insertAll(headlineDTOs)
     }
@@ -49,5 +60,11 @@ internal class HeadlineRepositoryImpl
                 lastViewedAt = null
             )
         }
+    }
+
+    private fun imagesPreLoad(url: String) {
+        Glide.with(context)
+            .load(url)
+            .preload()
     }
 }

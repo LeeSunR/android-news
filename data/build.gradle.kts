@@ -52,14 +52,13 @@ dependencies {
     implementation(libs.hilt.core)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-
     implementation(libs.okhttp3)
     implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
-
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     annotationProcessor(libs.room.compiler)
     kapt(libs.room.compiler)
+    implementation(libs.glide)
 }

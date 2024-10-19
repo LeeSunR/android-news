@@ -17,6 +17,7 @@ hiltNavigationCompose = "1.0.0"
 okhttp3 = "4.12.0"
 retrofit = "2.9.0"
 glideCompose = "1.0.0-beta01"
+glide = "4.12.0"
 systemuicontroller = "0.27.0"
 room = "2.6.1"
 
@@ -37,6 +38,7 @@ compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "systemuicontroller" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glideCompose" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
