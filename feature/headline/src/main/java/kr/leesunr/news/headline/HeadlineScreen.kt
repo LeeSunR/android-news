@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kr.leesunr.news.core.utils.isTablet
+import kr.leesunr.news.core.utils.viewModelProvider
 import kr.leesunr.news.headline.ui.HeadlineItem
 import kr.leesunr.news.headline.viewmodel.HeadlineViewModel
 
@@ -18,7 +19,7 @@ import kr.leesunr.news.headline.viewmodel.HeadlineViewModel
 fun HeadlineScreen(
     modifier: Modifier
 ) {
-    val viewModel = hiltViewModel<HeadlineViewModel>()
+    val viewModel = viewModelProvider<HeadlineViewModel>()
     val uiState = viewModel.uiState.collectAsState().value
 
     LazyVerticalGrid(

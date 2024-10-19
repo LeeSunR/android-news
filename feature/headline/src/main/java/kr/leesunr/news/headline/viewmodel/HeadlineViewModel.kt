@@ -5,6 +5,9 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kr.leesunr.news.core.base.BaseViewModel
+import kr.leesunr.news.core.base.command.Destination
+import kr.leesunr.news.core.base.command.Key
+import kr.leesunr.news.core.base.command.NavigationCommand
 import kr.leesunr.news.domain.headline.entity.Headline
 import kr.leesunr.news.domain.headline.usecase.HeadlineUseCase
 import kr.leesunr.news.headline.HeadlineUiState
@@ -36,7 +39,7 @@ class HeadlineViewModel @Inject constructor(
         title = title,
         imageUrl = imageUrl,
         publishedDate = publishedAt.toDisplay(),
-        onClick = { }
+        onClick = { onClickHeadline(this) }
     )
 
     private fun Date.toDisplay(): String {
@@ -44,4 +47,15 @@ class HeadlineViewModel @Inject constructor(
         return sdf.format(this)
     }
 
+    private fun onClickHeadline(headline: Headline) {
+        val navigationCommand = NavigationCommand(
+            destination = Destination.WEB_VIEW,
+            args = mapOf(
+                Key.URL to headline.url,
+                Key.TITLE to headline.title
+            )
+
+        )
+        navigate(navigationCommand)
+    }
 }
