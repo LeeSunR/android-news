@@ -7,7 +7,6 @@ import java.util.Date
  * */
 data class Headline(
     val key: String,
-    val sourceName: String?,
     val title: String,
     val url: String,
     val imageUrl: String?,

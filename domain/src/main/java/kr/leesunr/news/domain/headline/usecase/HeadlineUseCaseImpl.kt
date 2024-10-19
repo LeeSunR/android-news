@@ -9,6 +9,10 @@ internal class HeadlineUseCaseImpl
 @Inject constructor(
     private val headlineRepository: HeadlineRepository,
 ) : HeadlineUseCase {
+    override suspend fun fetch() {
+        headlineRepository.fetch()
+    }
+
     override fun getAllFlow(): Flow<List<Headline>> {
         return headlineRepository.getAllFlow()
     }

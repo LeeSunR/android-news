@@ -4,6 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import kr.leesunr.news.core.base.BaseViewModel
 import kr.leesunr.news.core.base.command.Destination
 import kr.leesunr.news.core.base.command.Key
@@ -21,6 +22,11 @@ import javax.inject.Inject
 class HeadlineViewModel @Inject constructor(
     private val headlinesUseCase: HeadlineUseCase
 ) : BaseViewModel() {
+    init {
+        baseViewModelScope.launch {
+            headlinesUseCase.fetch()
+        }
+    }
 
     val uiState = headlinesUseCase.getAllFlow().map {
         HeadlineUiState(
