@@ -24,7 +24,7 @@ fun HeadlineItem(
     uiModel: HeadlineUiModel
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .clip(MaterialTheme.shapes.small)
             .background(MaterialTheme.colorScheme.secondary)
     ) {
