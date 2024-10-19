@@ -15,7 +15,6 @@ internal data class HeadlineDTO(
     @ColumnInfo(name = "url") val url: String,
     @ColumnInfo(name = "imageUrl") val imageUrl: String?,
     @ColumnInfo(name = "publishedAt") val publishedAt: Date,
-    @ColumnInfo(name = "lastViewedAt") val lastViewedAt: Date?,
 ) {
     fun toDomain(): Headline {
         return Headline(
@@ -24,9 +23,10 @@ internal data class HeadlineDTO(
             url = url,
             imageUrl = imageUrl,
             publishedAt = publishedAt,
-            lastViewedAt = lastViewedAt
+            isVisited = false
         )
     }
+
     companion object {
         fun of(headline: Headline): HeadlineDTO {
             return HeadlineDTO(
@@ -34,8 +34,7 @@ internal data class HeadlineDTO(
                 title = headline.title,
                 url = headline.url,
                 imageUrl = headline.imageUrl,
-                publishedAt = headline.publishedAt,
-                lastViewedAt = headline.lastViewedAt
+                publishedAt = headline.publishedAt
             )
         }
     }

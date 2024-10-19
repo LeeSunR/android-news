@@ -65,7 +65,7 @@ class HeadlineViewModel @Inject constructor(
         title = title,
         imageUrl = imageUrl,
         publishedDate = publishedAt.toDisplay(),
-        highlight = isRead,
+        highlight = isVisited,
         onClick = { onClickHeadline(this) }
     )
 

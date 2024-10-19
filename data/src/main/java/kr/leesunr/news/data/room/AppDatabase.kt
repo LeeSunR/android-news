@@ -6,20 +6,25 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import kr.leesunr.news.data.room.dao.HeadlineDAO
+import kr.leesunr.news.data.room.dao.VisitHistoryDAO
 import kr.leesunr.news.data.room.dto.HeadlineDTO
+import kr.leesunr.news.data.room.dto.HeadlineWithIsVisitHistoryDTO
+import kr.leesunr.news.data.room.dto.VisitHistoryDTO
 
 private const val DATABASE_VERSION = 1
 private const val DATABASE_NAME = "news.db"
 
 @Database(
     entities = [
-        HeadlineDTO::class
+        HeadlineDTO::class,
+        VisitHistoryDTO::class,
     ], version = DATABASE_VERSION
 )
 
 @TypeConverters(RoomConverter::class)
 internal abstract class AppDatabase : RoomDatabase() {
     abstract fun getHeadlineDAO(): HeadlineDAO
+    abstract fun getVisitHistoryDAO(): VisitHistoryDAO
 }
 
 internal object RoomFactory {

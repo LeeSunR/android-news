@@ -12,8 +12,6 @@ data class Headline(
     val url: String,
     val imageUrl: String?,
     val publishedAt: Date,
-    val lastViewedAt: Date?,
+    val isVisited: Boolean,
 ) {
-    val isRead: Boolean
-        get() = lastViewedAt != null
 }

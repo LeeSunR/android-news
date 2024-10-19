@@ -32,7 +32,7 @@ internal class HeadlineRepositoryImpl
         }
 
         val headlineDTOs = headlines.map { HeadlineDTO.of(it) }
-        headlineDAO.insertAll(headlineDTOs)
+        headlineDAO.fetch(headlineDTOs)
     }
 
     override suspend fun update(headline: Headline) {
@@ -57,7 +57,7 @@ internal class HeadlineRepositoryImpl
                 url = it.url,
                 imageUrl = it.urlToImage,
                 publishedAt = it.publishedAt,
-                lastViewedAt = null
+                isVisited = false
             )
         }
     }

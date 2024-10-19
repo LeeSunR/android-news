@@ -49,4 +49,10 @@ internal object DataModule {
     fun provideNewsDao(
         roomDatabase: AppDatabase
     ) = roomDatabase.getHeadlineDAO()
+
+    @Singleton
+    @Provides
+    fun provideVisitHistoryDAO(
+        roomDatabase: AppDatabase
+    ) = roomDatabase.getVisitHistoryDAO()
 }
