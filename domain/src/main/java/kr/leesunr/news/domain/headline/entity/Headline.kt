@@ -1,5 +1,6 @@
 package kr.leesunr.news.domain.headline.entity
 
+import java.time.Instant
 import java.util.Date
 
 /**
@@ -11,7 +12,7 @@ data class Headline(
     val url: String,
     val imageUrl: String?,
     val publishedAt: Date,
-    val lastViewedAt: String?,
+    val lastViewedAt: Date?,
 ) {
     val isRead: Boolean
         get() = lastViewedAt != null

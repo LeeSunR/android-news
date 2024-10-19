@@ -15,7 +15,7 @@ internal data class HeadlineDTO(
     @ColumnInfo(name = "url") val url: String,
     @ColumnInfo(name = "imageUrl") val imageUrl: String?,
     @ColumnInfo(name = "publishedAt") val publishedAt: Date,
-    @ColumnInfo(name = "lastViewedAt") val lastViewedAt: String?,
+    @ColumnInfo(name = "lastViewedAt") val lastViewedAt: Date?,
 ) {
     fun toDomain(): Headline {
         return Headline(

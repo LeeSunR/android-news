@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -47,13 +48,15 @@ fun HeadlineItem(
             Text(
                 text = uiModel.title,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSecondary,
+                color = if (uiModel.highlight) Color.Red
+                else MaterialTheme.colorScheme.onSecondary,
             )
 
             Text(
                 text = uiModel.publishedDate,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSecondary,
+                color = if (uiModel.highlight) Color.Red
+                else MaterialTheme.colorScheme.onSecondary,
             )
         }
     }

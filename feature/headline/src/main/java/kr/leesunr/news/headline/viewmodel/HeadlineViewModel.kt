@@ -45,6 +45,7 @@ class HeadlineViewModel @Inject constructor(
         title = title,
         imageUrl = imageUrl,
         publishedDate = publishedAt.toDisplay(),
+        highlight = isRead,
         onClick = { onClickHeadline(this) }
     )
 
@@ -60,8 +61,10 @@ class HeadlineViewModel @Inject constructor(
                 Key.URL to headline.url,
                 Key.TITLE to headline.title
             )
-
         )
         navigate(navigationCommand)
+        baseViewModelScope.launch {
+            headlinesUseCase.read(headline)
+        }
     }
 }

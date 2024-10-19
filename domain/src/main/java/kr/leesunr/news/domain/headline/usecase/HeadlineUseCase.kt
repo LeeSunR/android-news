@@ -5,5 +5,6 @@ import kr.leesunr.news.domain.headline.entity.Headline
 
 interface HeadlineUseCase {
     suspend fun fetch()
+    suspend fun read(headline: Headline)
     fun getAllFlow(): Flow<List<Headline>>
 }
