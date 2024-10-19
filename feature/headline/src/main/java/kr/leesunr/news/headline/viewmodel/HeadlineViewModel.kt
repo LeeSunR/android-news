@@ -1,7 +1,9 @@
 package kr.leesunr.news.headline.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -10,6 +12,7 @@ import kr.leesunr.news.core.base.command.Destination
 import kr.leesunr.news.core.base.command.Key
 import kr.leesunr.news.core.base.command.NavigationCommand
 import kr.leesunr.news.domain.headline.entity.Headline
+import kr.leesunr.news.domain.headline.exception.HeadlineFetchException
 import kr.leesunr.news.domain.headline.usecase.HeadlineUseCase
 import kr.leesunr.news.headline.HeadlineUiState
 import kr.leesunr.news.headline.ui.HeadlineUiModel
@@ -22,21 +25,38 @@ import javax.inject.Inject
 class HeadlineViewModel @Inject constructor(
     private val headlinesUseCase: HeadlineUseCase
 ) : BaseViewModel() {
+
+    private val isSuccessFetch = MutableStateFlow<Boolean?>(null)
+
     init {
-        baseViewModelScope.launch {
-            headlinesUseCase.fetch()
-        }
+        fetchHeadlines()
     }
 
-    val uiState = headlinesUseCase.getAllFlow().map {
+    val uiState = combine(
+        headlinesUseCase.getAllFlow(),
+        isSuccessFetch
+    ) { headlines, isSuccessFetch ->
         HeadlineUiState(
-            headlines = it.toUiModel()
+            isVisibleFetchFailureMessage = isSuccessFetch == false,
+            onClickFetch = ::fetchHeadlines,
+            headlines = headlines.toUiModel()
         )
     }.stateIn(
         scope = baseViewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = HeadlineUiState(emptyList()),
+        initialValue = HeadlineUiState(
+            isVisibleFetchFailureMessage = false,
+            onClickFetch = ::fetchHeadlines,
+            headlines = emptyList()
+        )
     )
+
+    private fun fetchHeadlines() {
+        baseViewModelScope.launch {
+            headlinesUseCase.fetch()
+            isSuccessFetch.value = true
+        }
+    }
 
     private fun List<Headline>.toUiModel() = map { it.toUiModel() }
 
@@ -66,5 +86,14 @@ class HeadlineViewModel @Inject constructor(
         baseViewModelScope.launch {
             headlinesUseCase.read(headline)
         }
+    }
+
+    override fun onError(throwable: Throwable): Boolean {
+        when (throwable) {
+            is HeadlineFetchException -> {
+                isSuccessFetch.value = false
+            }
+        }
+        return true
     }
 }

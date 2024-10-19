@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_failure_message">최신 데이터를 불러오는데 실패하였습니다.</string>
+    <string name="refetch_button">다시 불러오기</string>
+</resources>

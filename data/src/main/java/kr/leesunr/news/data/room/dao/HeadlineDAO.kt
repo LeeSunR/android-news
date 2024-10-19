@@ -12,7 +12,7 @@ internal interface HeadlineDAO {
     @Query("SELECT * FROM Headline")
     fun getAll(): Flow<List<HeadlineDTO>>
 
-    @Insert
+    @Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
     suspend fun insertAll(entities: List<HeadlineDTO>)
 
     @Update

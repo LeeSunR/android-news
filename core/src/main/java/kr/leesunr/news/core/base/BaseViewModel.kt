@@ -24,7 +24,7 @@ abstract class BaseViewModel:ViewModel() {
         _navigateEvent.tryEmit(command)
     }
 
-    private fun onError(throwable: Throwable): Boolean {
+    open fun onError(throwable: Throwable): Boolean {
         return false
     }
 
