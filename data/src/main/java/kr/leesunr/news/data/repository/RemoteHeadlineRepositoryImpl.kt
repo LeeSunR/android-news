@@ -35,11 +35,6 @@ internal class HeadlineRepositoryImpl
         headlineDAO.fetch(headlineDTOs)
     }
 
-    override suspend fun update(headline: Headline) {
-        val headlineDTO = HeadlineDTO.of(headline)
-        headlineDAO.update(headlineDTO)
-    }
-
     override fun getAllFlow(): Flow<List<Headline>> {
         val flow = headlineDAO.getAll().map { headlineDTOs ->
             headlineDTOs.map { it.toDomain() }

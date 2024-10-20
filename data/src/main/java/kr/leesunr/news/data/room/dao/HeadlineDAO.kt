@@ -23,9 +23,6 @@ internal interface HeadlineDAO {
         insertAll(entities)
     }
 
-    @Update
-    suspend fun update(entity: HeadlineDTO)
-
     @Query("DELETE FROM Headline")
     fun deleteAll()
 }

@@ -1,6 +1,5 @@
 package kr.leesunr.news.domain.headline.entity
 
-import java.time.Instant
 import java.util.Date
 
 /**
@@ -13,5 +12,4 @@ data class Headline(
     val imageUrl: String?,
     val publishedAt: Date,
     val isVisited: Boolean,
-) {
-}
+)
