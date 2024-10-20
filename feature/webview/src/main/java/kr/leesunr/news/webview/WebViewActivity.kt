@@ -5,6 +5,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import kr.leesunr.news.webview.databinding.ActivityWebviewBinding
 
 
@@ -16,10 +17,11 @@ class WebViewActivity: AppCompatActivity() {
         val url = intent.getStringExtra("url")
         val title = intent.getStringExtra("title")
 
+        // set status bar color
+        this.window.statusBarColor = ContextCompat.getColor(this, R.color.primary)
+
         binding.toolbar.title = title
-
         binding.webView.webViewClient = MyWebViewClient()
-
         binding.webView.loadUrl(url!!)
     }
 
