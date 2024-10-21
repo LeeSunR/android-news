@@ -3,8 +3,7 @@ package kr.leesunr.news.domain.headline.usecase
 import kotlinx.coroutines.flow.Flow
 import kr.leesunr.news.domain.headline.entity.Headline
 
-interface HeadlineUseCase {
+interface HeadlineGetUseCase {
     suspend fun fetch()
-    suspend fun read(headline: Headline)
     fun getAllFlow(): Flow<List<Headline>>
 }

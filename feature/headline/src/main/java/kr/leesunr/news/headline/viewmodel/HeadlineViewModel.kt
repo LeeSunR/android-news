@@ -12,7 +12,8 @@ import kr.leesunr.news.core.base.command.Key
 import kr.leesunr.news.core.base.command.NavigationCommand
 import kr.leesunr.news.domain.headline.entity.Headline
 import kr.leesunr.news.domain.headline.exception.HeadlineFetchException
-import kr.leesunr.news.domain.headline.usecase.HeadlineUseCase
+import kr.leesunr.news.domain.headline.usecase.HeadlineVisitUseCase
+import kr.leesunr.news.domain.headline.usecase.HeadlineGetUseCase
 import kr.leesunr.news.headline.HeadlineUiState
 import kr.leesunr.news.headline.ui.HeadlineUiModel
 import java.text.SimpleDateFormat
@@ -22,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HeadlineViewModel @Inject constructor(
-    private val headlinesUseCase: HeadlineUseCase
+    private val headlineGetUseCase: HeadlineGetUseCase,
+    private val headlineVisitUseCase: HeadlineVisitUseCase
 ) : BaseViewModel() {
 
     private val isSuccessFetch = MutableStateFlow<Boolean?>(null)
@@ -32,7 +34,7 @@ class HeadlineViewModel @Inject constructor(
     }
 
     val uiState = combine(
-        headlinesUseCase.getAllFlow(),
+        headlineGetUseCase.getAllFlow(),
         isSuccessFetch
     ) { headlines, isSuccessFetch ->
         HeadlineUiState(
@@ -52,7 +54,7 @@ class HeadlineViewModel @Inject constructor(
 
     private fun fetchHeadlines() {
         baseViewModelScope.launch {
-            headlinesUseCase.fetch()
+            headlineGetUseCase.fetch()
             isSuccessFetch.value = true
         }
     }
@@ -83,7 +85,7 @@ class HeadlineViewModel @Inject constructor(
         )
         navigate(navigationCommand)
         baseViewModelScope.launch {
-            headlinesUseCase.read(headline)
+            headlineVisitUseCase.invoke(headline)
         }
     }
 
